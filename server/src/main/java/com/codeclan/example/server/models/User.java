@@ -1,15 +1,45 @@
 package com.codeclan.example.server.models;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Cascade;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    @Column(name = "username")
     private String username;
+    @Column(name = "firstName")
     private String firstName;
+    @Column(name = "lastNameInitials")
     private String lastNameInitials;
+    @Column(name = "password")
     private String password;
+
+    @ManyToMany
+    @JsonIgnoreProperties({"userBoardgames"})
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @JoinTable(
+            name = "users_boardGames",
+            joinColumns = { @JoinColumn (
+                    name = "user_id",
+                    nullable = false,
+                    updatable = false)
+            },
+            inverseJoinColumns = { @JoinColumn (
+                    name = "boardgame_id",
+                    nullable = false,
+                    updatable = false)
+            }
+    )
     private List<BoardGame> userBoardgames;
 
     public User(String username, String firstName, String lastNameInitials, String password) {
