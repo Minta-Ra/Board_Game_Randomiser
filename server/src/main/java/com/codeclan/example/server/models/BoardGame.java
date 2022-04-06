@@ -44,11 +44,11 @@ public class BoardGame {
     )
     private List<User> userBoardgames;
 
-    public BoardGame(String image, String title, String playingTime, String numOfPlayers) {
+    public BoardGame(String image, String title, String numOfPlayers, String playingTime) {
         this.image = image;
         this.title = title;
-        this.playingTime = playingTime;
         this.numOfPlayers = numOfPlayers;
+        this.playingTime = playingTime;
         this.userBoardgames = new ArrayList<User>();
     }
 
