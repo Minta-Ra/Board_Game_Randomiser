@@ -4,9 +4,7 @@ import com.codeclan.example.server.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 
@@ -24,6 +22,29 @@ public class UserController {
     @GetMapping(value = "/users/{id}")
     public ResponseEntity getUserById(@PathVariable Long id) {
         return new ResponseEntity(userRepository.findById(id), HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/users")
+    public ResponseEntity<User> postUser(@RequestBody User user) {
+        userRepository.save(user);
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/users/{id}")
+    public ResponseEntity<User> putUser(@RequestBody User user, @PathVariable Long id) {
+        User userToUpdate = userRepository.findById(id).get();
+        userToUpdate.setUsername(user.getUsername());
+        userToUpdate.setFirstName(user.getFirstName());
+        userToUpdate.setLastNameInitials(user.getLastNameInitials());
+        userToUpdate.setPassword(user.getPassword());
+        userRepository.save(userToUpdate);
+        return new ResponseEntity<>(userToUpdate, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/users/{id}")
+    public ResponseEntity<Long> deleteUser(@PathVariable Long id) {
+        userRepository.deleteById(id);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
 }
