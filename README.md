@@ -1,3 +1,8 @@
+Starting front-end:
+expo init client
+cd client
+expo start
+
 # Board Game Randomiser
 
 ### MVP
