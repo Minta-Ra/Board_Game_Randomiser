@@ -1,7 +1,7 @@
 import React from "react";
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import {useEffect, useState} from "react";
-// import BoardgameList from "../components/BoardgameList";
+import BoardgameList from "../components/BoardgameList";
 
 
 export default function BoardgameContainer() {
@@ -19,7 +19,9 @@ export default function BoardgameContainer() {
     };
 
     return (
-        <Text>BoardgameContainer</Text>
+        <View>
+            <BoardgameList boardgames={boardgames}/>
+        </View>
     );
 
 }
